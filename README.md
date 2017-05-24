@@ -57,7 +57,7 @@ tmdb:
     api_key: "API_KEY_HERE"
     use_models: true 
 ```
-If use set `use_models` to `true` the Services return Model instances of Movies, TvShows, Episodes and Seasons located under `bogdanfinn/tmdbBundle/Model`. If you set `use_models` the services return JSON objects. 
+If use set `use_models` to `true` the Services return Model instances of Movies, TvShows, Episodes and Seasons located under `bogdanfinn/tmdbBundle/Model`. If you set `use_models` to `false` the services return JSON objects. 
 
 Step 3: Usage
 ----------------
