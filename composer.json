@@ -1,9 +1,9 @@
 {
-    "name": "bogdanfinn/tmdbBundle",
+    "name": "bogdanfinn/tmdb-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
     "description": "Symfony Bundle for accessing https://www.themoviedb.org API",
-    "homepage": "https://github.com/bogdanfinn/tmdbBundle",
+    "homepage": "https://github.com/bogdanfinn/tmdb-bundle",
     "keywords": ["tmdb", "api", "symfony","bundle"],
     "authors": [
         {
