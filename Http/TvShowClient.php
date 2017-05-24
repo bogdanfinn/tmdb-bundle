@@ -1,16 +1,17 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http\tmdb;
+namespace bogdanfinn\tmdbBundle\Http;
 
-use bogdanfinn\tmdbBundle\Http\TMDbClient;
+use bogdanfinn\tmdbBundle\Conversion\TvShowTransformer;
+use bogdanfinn\tmdbBundle\Model\TvShow;
 
 /**
  * Client for accessing The Movie Database /tv endpoints
- * Documentation for the endpoints can be found at http://docs.themoviedb.apiary.io/#reference/tv
+ * Documentation for the endpoints can be found at TODO: insert link
  *
- * All responses are deserialized JSON objects as stdClass (or array of stdClass)
+ * All responses are deserialized JSON objects as stdClass or Modelinstances based on config
  */
-class TvClient
+class TvShowClient
 {
 
     /**
@@ -19,50 +20,65 @@ class TvClient
     private $tmdbClient;
 
     /**
-     * @param TMDbClient $tmdbClient
+     * @var TvShowTransformer
      */
-    public function __construct(TMDbClient $tmdbClient)
+    private $tvShowTransformer;
+
+    /**
+     * @var bool
+     */
+    private $useModels;
+
+    /**
+     * TvShowClient constructor.
+     * @param TmdbClient $tmdbClient
+     * @param TvShowTransformer $tvShowTransformer
+     * @param bool $useModels
+     */
+    public function __construct(TmdbClient $tmdbClient, TvShowTransformer $tvShowTransformer, $useModels = true)
     {
         $this->tmdbClient = $tmdbClient;
+        $this->tvShowTransformer = $tvShowTransformer;
+        $this->useModels = $useModels;
     }
 
     /**
      * Get the primary information about a TV series by id.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/tv/tvid
+     * @link TODO
      *
      * @param string $id
      * @param string $language
      * @param array $append_to_response
-     * @return \stdClass
+     * @return TvShow | \stdClass
      */
     public function getTvShow($id, $language = 'en', array $append_to_response = [])
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("tv/$id", compact('language', 'append_to_response'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("tv/$id", compact('language', 'append_to_response')));
     }
 
     /**
      * Search all TV shows by given query
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/search/searchtv
+     * @link TODO
      *
      * @param string $query
      * @param string $language
      * @param int $page
-     * @return \stdClass
+     * @return TvShow[] | \stdClass
      */
     public function searchTvShow($query, $language = 'en', $page = 1)
     {
-        return $this->tmdbClient->json("search/tv", compact('language', 'query', 'page'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("search/tv", compact('language', 'query', 'page')));
     }
 
     /**
      * Get the list of TV shows that are currently on the air.
      * This query looks for any TV show that has an episode with an air date in the next 7 days.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/tv/tvontheair
+     * @link TODO
      *
      * @param string $language
      * @param int $page
@@ -70,14 +86,14 @@ class TvClient
      */
     public function getOnTheAir($language = 'en', $page = 1)
     {
-        return $this->tmdbClient->json("tv/on_the_air", compact('language', 'page'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("tv/on_the_air", compact('language', 'page')));
     }
 
     /**
      * Get the list of TV shows that air today. Without a specified timezone,
      * this query defaults to EST (Eastern Time UTC-05:00).
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/tv/tvairingtoday
+     * @link TODO
      *
      * @param string $timezone
      * @param string $language
@@ -86,7 +102,7 @@ class TvClient
      */
     public function getAiringToday($timezone = 'EST', $language = 'en', $page = 1)
     {
-        return $this->tmdbClient->json("tv/airing_today", compact('timezone', 'language', 'page'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("tv/airing_today", compact('timezone', 'language', 'page')));
     }
 
     /**
@@ -104,7 +120,7 @@ class TvClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("tv/$id/season/$season_number", compact('language', 'append_to_response'));
+        return $this->transformSeasonResponseToModels($this->tmdbClient->json("tv/$id/season/$season_number", compact('language', 'append_to_response')));
     }
 
     /**
@@ -123,44 +139,13 @@ class TvClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("tv/$id/season/$season_number/episode/$episode_number", compact('language', 'append_to_response'));
-    }
-
-    /**
-     * Perform n concurrent requests at once for each season from 1 to n for given TV show
-     * The returned array is zero-based, where the first field is the first season and so on;
-     *  so the last key is n-1
-     *
-     * @link http://docs.themoviedb.apiary.io/#reference/tv-seasons/tvidseasonseasonnumber
-     *
-     * @param string|int $id
-     * @param array $seasons
-     * @param string $language
-     * @param array $append_to_response
-     * @return \stdClass[]
-     */
-    public function getNSeasons($id, $seasons, $language = 'en', array $append_to_response = [])
-    {
-        $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
-
-        $requests = [];
-        $queryParameters = compact('language', 'append_to_response');
-
-        //Because some tv shows have seasons not in proper order.
-        $countSeasons = count($seasons);
-
-        for ($i = 0; $i < $countSeasons; $i++) {
-            $seasonNumber = $seasons[$i]->season_number;
-            $requests[] = $this->tmdbClient->json("tv/$id/season/$seasonNumber", $queryParameters, [], true);
-        }
-
-        return \GuzzleHttp\Promise\unwrap($requests);
+        return $this->transformEpisodeResponseToModels($this->tmdbClient->json("tv/$id/season/$season_number/episode/$episode_number", compact('language', 'append_to_response')));
     }
 
     /**
      * Get the similar TV shows for a specific tv id.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/tv/tvidsimilar
+     * @link TODO
      *
      * @param int $id
      * @param string $language
@@ -172,13 +157,13 @@ class TvClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("tv/$id/similar", compact('id', 'language', 'page', 'append_to_response'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("tv/$id/similar", compact('id', 'language', 'page', 'append_to_response')));
     }
 
     /**
      * Get Recommendations for a specific tv id.
      *
-     * @link https://developers.themoviedb.org/3/tv/get-tv-recommendations
+     * @link TODO
      *
      * @param int $id
      * @param string $language
@@ -190,6 +175,39 @@ class TvClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("tv/$id/recommendations", compact('id', 'language', 'page', 'append_to_response'));
+        return $this->transformTvShowResponseToModels($this->tmdbClient->json("tv/$id/recommendations", compact('id', 'language', 'page', 'append_to_response')));
+    }
+
+    /**
+     * @param $apiResponse
+     * @return mixed
+     */
+    private function transformTvShowResponseToModels($apiResponse){
+        if($this->useModels){
+            return $this->tvShowTransformer->assignTvShowToModel($apiResponse);
+        }
+        return $apiResponse;
+    }
+
+    /**
+     * @param $apiResponse
+     * @return mixed
+     */
+    private function transformSeasonResponseToModels($apiResponse){
+        if($this->useModels){
+            return $this->tvShowTransformer->assignSeasonToModel($apiResponse);
+        }
+        return $apiResponse;
+    }
+
+    /**
+     * @param $apiResponse
+     * @return mixed
+     */
+    private function transformEpisodeResponseToModels($apiResponse){
+        if($this->useModels){
+            return $this->tvShowTransformer->assignEpisodeToModel($apiResponse);
+        }
+        return $apiResponse;
     }
 }

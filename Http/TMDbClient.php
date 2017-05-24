@@ -1,6 +1,6 @@
 <?php
 
-namespace Watchlists\ApiBundle\Http;
+namespace bogdanfinn\tmdbBundle\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Promise\PromiseInterface;
@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * HTTP client for accessing The Movie Database API loosely wrapped around Guzzle
- * Document for the API can be found at http://docs.themoviedb.apiary.io/
+ * Document for the API can be found at TODO: Insert Link
  */
-class TMDbClient
+class TmdbClient
 {
 
     /**
-     * Base URL to the API Version 2
+     * Base URL to the API Version 3
      * Using always the SSL version because why not
      */
     const TMDB_API_BASE_URL = 'https://api.themoviedb.org/3/';

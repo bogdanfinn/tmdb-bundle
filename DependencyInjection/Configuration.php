@@ -1,5 +1,5 @@
 <?php
-namespace bogdanfinn\TmdbBundle\DependencyInjection;
+namespace bogdanfinn\tmdbBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -12,12 +12,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('bogdanfinn_tmdb');
+        $rootNode = $treeBuilder->root('tmdb');
 
         $rootNode
             ->children()
                 ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('use_entities')->defaultValue(true)->end()
+                ->scalarNode('use_models')->defaultValue(true)->end()
             ->end();
 
         return $treeBuilder;

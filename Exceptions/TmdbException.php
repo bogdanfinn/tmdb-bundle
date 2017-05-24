@@ -3,7 +3,7 @@
 namespace bogdanfinn\tmdbBundle\Exceptions;
 
 
-class TmdbException extends \Exception
+class tmdbException extends \Exception
 {
 
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http\tmdb;
+namespace bogdanfinn\tmdbBundle\Http;
 
 
-use bogdanfinn\tmdbBundle\Http\TMDbClient;
+
+use bogdanfinn\tmdbBundle\Conversion\MovieTransformer;
 
 class MovieClient
 {
@@ -13,17 +14,30 @@ class MovieClient
     private $tmdbClient;
 
     /**
-     * @param TMDbClient $tmdbClient
+     * @var MovieTransformer
      */
-    public function __construct(TMDbClient $tmdbClient)
+    private $movieTransformer;
+
+    /** @var  bool */
+    private $useModels;
+
+    /**
+     * MovieClient constructor.
+     * @param TmdbClient $tmdbClient
+     * @param MovieTransformer $movieTransformer
+     * @param bool $useModels
+     */
+    public function __construct(TmdbClient $tmdbClient, MovieTransformer $movieTransformer, $useModels = true)
     {
         $this->tmdbClient = $tmdbClient;
+        $this->movieTransformer = $movieTransformer;
+        $this->useModels = $useModels;
     }
 
     /**
      * Get the basic movie information for a specific movie id.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/movies
+     * @link TODO
      *
      * @param int $id
      * @param string $language
@@ -34,13 +48,13 @@ class MovieClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("movie/$id", compact('language', 'append_to_response'));
+        return $this->transformMovieResponseToModels($this->tmdbClient->json("movie/$id", compact('language', 'append_to_response')));
     }
 
     /**
      * Search all movies by given query
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/search/searchmovie
+     * @link TODO
      *
      * @param string $query
      * @param string $language
@@ -49,13 +63,13 @@ class MovieClient
      */
     public function searchMovie($query, $language = 'en', $page = 1)
     {
-        return $this->tmdbClient->json("search/movie", compact('language', 'query', 'page'));
+        return $this->transformMovieResponseToModels($this->tmdbClient->json("search/movie", compact('language', 'query', 'page')));
     }
 
     /**
      * Get the list of upcoming movies by release date. This list refreshes every day.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/movies/movieupcoming
+     * @link TODO
      *
      * @param string $language
      * @param int $page
@@ -64,13 +78,13 @@ class MovieClient
      */
     public function getUpcomingMovies($language = 'en', $page = 1, $region = 'DE')
     {
-        return $this->tmdbClient->json("movie/upcoming", compact('language', 'page', 'region'));
+        return $this->transformMovieResponseToModels($this->tmdbClient->json("movie/upcoming", compact('language', 'page', 'region')));
     }
 
     /**
      * Get the similar movies for a specific movie id.
      *
-     * @link http://docs.themoviedb.apiary.io/#reference/movies/movieidsimilar
+     * @link TODO
      *
      * @param int $id
      * @param string $language
@@ -82,13 +96,13 @@ class MovieClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("movie/$id/similar", compact('language', 'page', 'append_to_response'));
+        return $this->transformMovieResponseToModels($this->tmdbClient->json("movie/$id/similar", compact('language', 'page', 'append_to_response')));
     }
 
     /**
      * Get Recommendations for a specific movie id.
      *
-     * @link https://developers.themoviedb.org/3/movies/get-movie-recommendations
+     * @link TODO
      *
      * @param int $id
      * @param string $language
@@ -100,6 +114,17 @@ class MovieClient
     {
         $append_to_response = $append_to_response ? implode(',', $append_to_response) : null;
 
-        return $this->tmdbClient->json("movie/$id/recommendations", compact('language', 'page', 'append_to_response'));
+        return $this->transformMovieResponseToModels($this->tmdbClient->json("movie/$id/recommendations", compact('language', 'page', 'append_to_response')));
+    }
+
+    /**
+     * @param $apiResponse
+     * @return mixed
+     */
+    private function transformMovieResponseToModels($apiResponse){
+        if($this->useModels){
+            return $this->movieTransformer->assignMovieToModel($apiResponse);
+        }
+        return $apiResponse;
     }
 }
