@@ -120,13 +120,14 @@ $similarTvShows = $tvShowClient->getSimilarTvShows(1402);
 #### SeasonClient
 
 ```
-$season = $seasonClient->getSeason(1402, 1); // tvShowId, seasonNumber
+//Parameter: tvShowId, seasonNumber
+$season = $seasonClient->getSeason(1402, 1); 
 ```
 
 #### EpisodeClient
 
 ```
-//tvShowId, seasonNumber, episodeNumber
+//Parameter: tvShowId, seasonNumber, episodeNumber
 $episode = $episodeClient->getEpisode(1402, 1, 1); 
 ```
 
@@ -146,4 +147,7 @@ $upcomingMovies = $movieClient->getUpcomingMovies();
 ```
 $movieSearchResults = $searchClient->searchMovie('Forrest Gump');
 $tvShowSearchResults = $searchClient->searchTvShow('The Walking Dead');
+
+//Movies, TvShows and Persons
+$multiSearchResults = $searchClient->multiSearch('Wesley');
 ```
