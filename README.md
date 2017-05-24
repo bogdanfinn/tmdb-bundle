@@ -1,4 +1,4 @@
-# bogdanfinn/tmdbBundle
+# bogdanfinn/tmdb-bundle
 A symfony bundle for accessing the https://www.themoviedb.org/ Api
 
 
@@ -16,7 +16,7 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```console
-$ composer require bogdanfinn/tmdbBundle
+$ composer require bogdanfinn/tmdb-bundle
 ```
 
 This command requires you to have Composer installed globally, as explained
