@@ -74,6 +74,18 @@ Get the MovieClient in your Controller
 $movieClient = $this->get('tmdb_movie_client');
 ```
 
+Get the EpisodeClient in your Controller
+
+```
+$episodeClient = $this->get('tmdb_episode_client');
+```
+
+Get the SeasonClient in your Controller
+
+```
+$seasonClient = $this->get('tmdb_season_client');
+```
+
 ### Methods
 
 #### TvShowClient
@@ -87,6 +99,28 @@ $season = $tvShowClient->getSeason(1402, 1);
 $episode = $tvShowClient->getEpisode(1402, 1, 1);
 $tvShowRecommendations = $tvShowClient->getRecommendations(1402);
 $similarTvShows = $tvShowClient->getSimilarTvShows(1402);           
+```
+
+##### Get Information for another language
+
+You can set the language in the ClientMethod. The default language is always `en`.
+
+```
+$tvShowsSearchResults = $tvShowClient->searchTvShow('The Walking Dead','de');
+$tvShow = $tvShowClient->getTvShow(1402, 'de');
+```
+
+#### SeasonClient
+
+```
+$season = $seasonClient->getSeason(1402, 1); // tvShowId, seasonNumber
+```
+
+#### EpisodeClient
+
+```
+//tvShowId, seasonNumber, episodeNumber
+$episode = $episodeClient->getEpisode(1402, 1, 1); 
 ```
 
 
