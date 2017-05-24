@@ -1,10 +1,10 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle;
+namespace bogdanfinn\TmdbBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class tmdbBundle extends Bundle
+class TmdbBundle extends Bundle
 {
 
 }

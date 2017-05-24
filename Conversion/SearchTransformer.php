@@ -1,11 +1,11 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Conversion;
+namespace bogdanfinn\TmdbBundle\Conversion;
 
-use bogdanfinn\tmdbBundle\Model\Movie;
-use bogdanfinn\tmdbBundle\Model\Person;
-use bogdanfinn\tmdbBundle\Model\Season;
-use bogdanfinn\tmdbBundle\Model\TvShow;
+use bogdanfinn\TmdbBundle\Model\Movie;
+use bogdanfinn\TmdbBundle\Model\Person;
+use bogdanfinn\TmdbBundle\Model\Season;
+use bogdanfinn\TmdbBundle\Model\TvShow;
 
 
 /**

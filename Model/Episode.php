@@ -1,6 +1,6 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Model;
+namespace bogdanfinn\TmdbBundle\Model;
 
 
 class Episode

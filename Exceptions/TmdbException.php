@@ -1,9 +1,9 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Exceptions;
+namespace bogdanfinn\TmdbBundle\Exceptions;
 
 
-class tmdbException extends \Exception
+class TmdbException extends \Exception
 {
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Conversion;
+namespace bogdanfinn\TmdbBundle\Conversion;
 
-use bogdanfinn\tmdbBundle\Model\Season;
+use bogdanfinn\TmdbBundle\Model\Season;
 
 
 /**

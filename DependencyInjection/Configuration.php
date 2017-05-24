@@ -1,5 +1,5 @@
 <?php
-namespace bogdanfinn\tmdbBundle\DependencyInjection;
+namespace bogdanfinn\TmdbBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

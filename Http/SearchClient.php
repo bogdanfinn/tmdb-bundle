@@ -1,15 +1,15 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http;
+namespace bogdanfinn\TmdbBundle\Http;
 
 
 
-use bogdanfinn\tmdbBundle\Conversion\EpisodeTransformer;
-use bogdanfinn\tmdbBundle\Conversion\MovieTransformer;
-use bogdanfinn\tmdbBundle\Conversion\SearchTransformer;
-use bogdanfinn\tmdbBundle\Conversion\SeasonTransformer;
-use bogdanfinn\tmdbBundle\Conversion\TvShowTransformer;
-use bogdanfinn\tmdbBundle\Model\TvShow;
+use bogdanfinn\TmdbBundle\Conversion\EpisodeTransformer;
+use bogdanfinn\TmdbBundle\Conversion\MovieTransformer;
+use bogdanfinn\TmdbBundle\Conversion\SearchTransformer;
+use bogdanfinn\TmdbBundle\Conversion\SeasonTransformer;
+use bogdanfinn\TmdbBundle\Conversion\TvShowTransformer;
+use bogdanfinn\TmdbBundle\Model\TvShow;
 
 /**
  * Client for accessing The Movie Database /search endpoints

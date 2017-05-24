@@ -1,5 +1,5 @@
 <?php
-namespace bogdanfinn\tmdbBundle\Twig;
+namespace bogdanfinn\TmdbBundle\Twig;
 
 class TmdbExtension extends \Twig_Extension
 {

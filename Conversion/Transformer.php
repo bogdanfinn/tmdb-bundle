@@ -1,6 +1,6 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Conversion;
+namespace bogdanfinn\TmdbBundle\Conversion;
 
 
 abstract class Transformer

@@ -1,37 +1,37 @@
 services:
     tmdb_api_client:
-        class:        bogdanfinn\tmdbBundle\Http\TmdbClient
+        class:        bogdanfinn\TmdbBundle\Http\TmdbClient
         arguments:    ["%tmdb.api_key%"]
     tmdb_tvshow_transformer:
-        class:        bogdanfinn\tmdbBundle\Conversion\TvShowTransformer
+        class:        bogdanfinn\TmdbBundle\Conversion\TvShowTransformer
         arguments:    []
     tmdb_movie_transformer:
-        class:        bogdanfinn\tmdbBundle\Conversion\MovieTransformer
+        class:        bogdanfinn\TmdbBundle\Conversion\MovieTransformer
         arguments:    []
     tmdb_episode_transformer:
-        class:        bogdanfinn\tmdbBundle\Conversion\EpisodeTransformer
+        class:        bogdanfinn\TmdbBundle\Conversion\EpisodeTransformer
         arguments:    []
     tmdb_season_transformer:
-        class:        bogdanfinn\tmdbBundle\Conversion\SeasonTransformer
+        class:        bogdanfinn\TmdbBundle\Conversion\SeasonTransformer
         arguments:    []
     tmdb_search_transformer:
-        class:        bogdanfinn\tmdbBundle\Conversion\SearchTransformer
+        class:        bogdanfinn\TmdbBundle\Conversion\SearchTransformer
         arguments:    []
     tmdb_tvshow_client:
-        class:        bogdanfinn\tmdbBundle\Http\TvShowClient
+        class:        bogdanfinn\TmdbBundle\Http\TvShowClient
         arguments:    ["@tmdb_api_client", "@tmdb_tvshow_transformer", "%tmdb.use_models%", "@tmdb_search_client"]
     tmdb_movie_client:
-        class:        bogdanfinn\tmdbBundle\Http\MovieClient
+        class:        bogdanfinn\TmdbBundle\Http\MovieClient
         arguments:    ["@tmdb_api_client", "@tmdb_movie_transformer", "%tmdb.use_models%", "@tmdb_search_client"]
     tmdb_season_client:
-        class:        bogdanfinn\tmdbBundle\Http\SeasonClient
+        class:        bogdanfinn\TmdbBundle\Http\SeasonClient
         arguments:    ["@tmdb_api_client", "@tmdb_season_transformer", "%tmdb.use_models%"]
     tmdb_episode_client:
-        class:        bogdanfinn\tmdbBundle\Http\EpisodeClient
+        class:        bogdanfinn\TmdbBundle\Http\EpisodeClient
         arguments:    ["@tmdb_api_client", "@tmdb_episode_transformer", "%tmdb.use_models%"]
     tmdb_search_client:
-        class:        bogdanfinn\tmdbBundle\Http\SearchClient
+        class:        bogdanfinn\TmdbBundle\Http\SearchClient
         arguments:    ["@tmdb_api_client", "@tmdb_movie_transformer","@tmdb_tvshow_transformer","@tmdb_season_transformer", "@tmdb_episode_transformer", "@tmdb_search_transformer", "%tmdb.use_models%"]
     tmdb_twig_image_extension:
-        class:        bogdanfinn\tmdbBundle\Twig\TmdbExtension
+        class:        bogdanfinn\TmdbBundle\Twig\TmdbExtension
         arguments:    []

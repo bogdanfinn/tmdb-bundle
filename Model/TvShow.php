@@ -1,11 +1,7 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Model;
+namespace bogdanfinn\TmdbBundle\Model;
 
-/**
- * Class TvShow
- * @package bogdanfinn\tmdbBundle\Model
- */
 class TvShow
 {
     private $id;
