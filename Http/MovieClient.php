@@ -9,7 +9,7 @@ use bogdanfinn\tmdbBundle\Conversion\MovieTransformer;
 /**
  * Client for accessing The Movie Database /movies endpoints
  * Documentation for the endpoints can be found at https://developers.themoviedb.org/3/movies
- *
+ *https://developers.themoviedb.org/3/search
  * All responses are deserialized JSON objects as stdClass or Modelinstances based on config
  */
 class MovieClient
@@ -28,14 +28,21 @@ class MovieClient
     private $useModels;
 
     /**
+     * @var SearchClient
+     */
+    private $searchClient;
+
+    /**
      * MovieClient constructor.
      * @param TmdbClient $tmdbClient
      * @param MovieTransformer $movieTransformer
      * @param bool $useModels
+     * @param SearchClient $searchClient
      */
-    public function __construct(TmdbClient $tmdbClient, MovieTransformer $movieTransformer, $useModels = true)
+    public function __construct(TmdbClient $tmdbClient, MovieTransformer $movieTransformer, $useModels = true, SearchClient $searchClient)
     {
         $this->tmdbClient = $tmdbClient;
+        $this->searchClient = $searchClient;
         $this->movieTransformer = $movieTransformer;
         $this->useModels = $useModels;
     }
@@ -69,7 +76,7 @@ class MovieClient
      */
     public function searchMovie($query, $language = 'en', $page = 1)
     {
-        return $this->transformMovieResponseToModels($this->tmdbClient->json("search/movie", compact('language', 'query', 'page')));
+        return $this->searchClient->searchMovie($query, $language = 'en', $page = 1);
     }
 
     /**

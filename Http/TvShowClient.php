@@ -30,16 +30,23 @@ class TvShowClient
     private $useModels;
 
     /**
+     * @var SearchClient
+     */
+    private $searchClient;
+
+    /**
      * TvShowClient constructor.
      * @param TmdbClient $tmdbClient
      * @param TvShowTransformer $tvShowTransformer
      * @param bool $useModels
+     * @param SearchClient $searchClient
      */
-    public function __construct(TmdbClient $tmdbClient, TvShowTransformer $tvShowTransformer, $useModels = true)
+    public function __construct(TmdbClient $tmdbClient, TvShowTransformer $tvShowTransformer, $useModels = true, SearchClient $searchClient)
     {
         $this->tmdbClient = $tmdbClient;
         $this->tvShowTransformer = $tvShowTransformer;
         $this->useModels = $useModels;
+        $this->searchClient = $searchClient;
     }
 
     /**
@@ -71,7 +78,7 @@ class TvShowClient
      */
     public function searchTvShow($query, $language = 'en', $page = 1)
     {
-        return $this->transformTvShowResponseToModels($this->tmdbClient->json("search/tv", compact('language', 'query', 'page')));
+        return $this->searchClient->searchTvShow($query, $language = 'en', $page = 1);
     }
 
     /**
