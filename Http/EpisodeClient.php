@@ -1,8 +1,8 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http;
+namespace bogdanfinn\TmdbBundle\Http;
 
-use bogdanfinn\tmdbBundle\Conversion\EpisodeTransformer;
+use bogdanfinn\TmdbBundle\Conversion\EpisodeTransformer;
 
 /**
  * Client for accessing The Movie Database /tv-episodes endpoints

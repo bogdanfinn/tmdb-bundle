@@ -1,10 +1,10 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http;
+namespace bogdanfinn\TmdbBundle\Http;
 
 
 
-use bogdanfinn\tmdbBundle\Conversion\MovieTransformer;
+use bogdanfinn\TmdbBundle\Conversion\MovieTransformer;
 
 /**
  * Client for accessing The Movie Database /movies endpoints

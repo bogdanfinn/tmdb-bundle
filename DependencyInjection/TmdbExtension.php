@@ -1,6 +1,6 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\DependencyInjection;
+namespace bogdanfinn\TmdbBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class tmdbExtension extends Extension
+class TmdbExtension extends Extension
 {
     /**
      * {@inheritDoc}

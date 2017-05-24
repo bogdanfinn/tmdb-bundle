@@ -1,8 +1,8 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Conversion;
+namespace bogdanfinn\TmdbBundle\Conversion;
 
-use bogdanfinn\tmdbBundle\Model\Movie;
+use bogdanfinn\TmdbBundle\Model\Movie;
 
 
 /**

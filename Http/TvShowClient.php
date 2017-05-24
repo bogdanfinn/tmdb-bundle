@@ -1,9 +1,9 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http;
+namespace bogdanfinn\TmdbBundle\Http;
 
-use bogdanfinn\tmdbBundle\Conversion\TvShowTransformer;
-use bogdanfinn\tmdbBundle\Model\TvShow;
+use bogdanfinn\TmdbBundle\Conversion\TvShowTransformer;
+use bogdanfinn\TmdbBundle\Model\TvShow;
 
 /**
  * Client for accessing The Movie Database /tv endpoints

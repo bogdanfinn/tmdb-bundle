@@ -1,10 +1,8 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Conversion;
+namespace bogdanfinn\TmdbBundle\Conversion;
 
-use bogdanfinn\tmdbBundle\Model\Episode;
-use bogdanfinn\tmdbBundle\Model\Season;
-use bogdanfinn\tmdbBundle\Model\TvShow;
+use bogdanfinn\TmdbBundle\Model\TvShow;
 
 /**
  * Class responsible for transforming data coming from TMDb API into an model

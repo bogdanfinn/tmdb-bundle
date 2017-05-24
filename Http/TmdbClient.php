@@ -1,6 +1,6 @@
 <?php
 
-namespace bogdanfinn\tmdbBundle\Http;
+namespace bogdanfinn\TmdbBundle\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Promise\PromiseInterface;
