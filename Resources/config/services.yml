@@ -1,0 +1,19 @@
+services:
+    tmdb_api_client:
+        class:        bogdanfinn\tmdbBundle\Http\TmdbClient
+        arguments:    ["%tmdb.api_key%"]
+    tmdb_tvshow_transformer:
+        class:        bogdanfinn\tmdbBundle\Conversion\TvShowTransformer
+        arguments:    []
+    tmdb_movie_transformer:
+        class:        bogdanfinn\tmdbBundle\Conversion\MovieTransformer
+        arguments:    []
+    tmdb_tvshow_client:
+        class:        bogdanfinn\tmdbBundle\Http\TvShowClient
+        arguments:    ["@tmdb_api_client", "@tmdb_tvshow_transformer", "%tmdb.use_models%"]
+    tmdb_movie_client:
+        class:        bogdanfinn\tmdbBundle\Http\MovieClient
+        arguments:    ["@tmdb_api_client", "@tmdb_movie_transformer", "%tmdb.use_models%"]
+    tmdb_twig_image_extension:
+        class:        bogdanfinn\tmdbBundle\Twig\TmdbExtension
+        arguments:    []
