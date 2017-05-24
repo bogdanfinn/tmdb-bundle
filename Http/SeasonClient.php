@@ -5,7 +5,7 @@ namespace bogdanfinn\tmdbBundle\Http;
 use bogdanfinn\tmdbBundle\Conversion\SeasonTransformer;
 
 /**
- * Client for accessing The Movie Database /movies endpoints
+ * Client for accessing The Movie Database /tv-seasons endpoints
  * Documentation for the endpoints can be found at https://developers.themoviedb.org/3/tv-seasons
  *
  * All responses are deserialized JSON objects as stdClass or Modelinstances based on config

@@ -5,7 +5,7 @@ namespace bogdanfinn\tmdbBundle\Http;
 use bogdanfinn\tmdbBundle\Conversion\EpisodeTransformer;
 
 /**
- * Client for accessing The Movie Database /movies endpoints
+ * Client for accessing The Movie Database /tv-episodes endpoints
  * Documentation for the endpoints can be found at https://developers.themoviedb.org/3/tv-episodes
  *
  * All responses are deserialized JSON objects as stdClass or Modelinstances based on config
