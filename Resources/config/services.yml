@@ -14,6 +14,9 @@ services:
     tmdb_season_transformer:
         class:        bogdanfinn\tmdbBundle\Conversion\SeasonTransformer
         arguments:    []
+    tmdb_search_transformer:
+        class:        bogdanfinn\tmdbBundle\Conversion\SearchTransformer
+        arguments:    []
     tmdb_tvshow_client:
         class:        bogdanfinn\tmdbBundle\Http\TvShowClient
         arguments:    ["@tmdb_api_client", "@tmdb_tvshow_transformer", "%tmdb.use_models%", "@tmdb_search_client"]
@@ -28,7 +31,7 @@ services:
         arguments:    ["@tmdb_api_client", "@tmdb_episode_transformer", "%tmdb.use_models%"]
     tmdb_search_client:
         class:        bogdanfinn\tmdbBundle\Http\SearchClient
-        arguments:    ["@tmdb_api_client", "@tmdb_movie_transformer","@tmdb_tvshow_transformer","@tmdb_season_transformer", "@tmdb_episode_transformer", "%tmdb.use_models%"]
+        arguments:    ["@tmdb_api_client", "@tmdb_movie_transformer","@tmdb_tvshow_transformer","@tmdb_season_transformer", "@tmdb_episode_transformer", "@tmdb_search_transformer", "%tmdb.use_models%"]
     tmdb_twig_image_extension:
         class:        bogdanfinn\tmdbBundle\Twig\TmdbExtension
         arguments:    []

@@ -6,6 +6,7 @@ namespace bogdanfinn\tmdbBundle\Http;
 
 use bogdanfinn\tmdbBundle\Conversion\EpisodeTransformer;
 use bogdanfinn\tmdbBundle\Conversion\MovieTransformer;
+use bogdanfinn\tmdbBundle\Conversion\SearchTransformer;
 use bogdanfinn\tmdbBundle\Conversion\SeasonTransformer;
 use bogdanfinn\tmdbBundle\Conversion\TvShowTransformer;
 use bogdanfinn\tmdbBundle\Model\TvShow;
@@ -43,6 +44,11 @@ class SearchClient
      */
     private $seasonTransformer;
 
+    /**
+     * @var SearchTransformer
+     */
+    private $searchTransformer;
+
     /** @var  bool */
     private $useModels;
 
@@ -53,15 +59,17 @@ class SearchClient
      * @param TvShowTransformer $tvShowTransformer
      * @param SeasonTransformer $seasonTransformer
      * @param EpisodeTransformer $episodeTransformer
+     * @param SearchTransformer $searchTransformer
      * @param bool $useModels
      */
-    public function __construct(TmdbClient $tmdbClient, MovieTransformer $movieTransformer, TvShowTransformer $tvShowTransformer, SeasonTransformer $seasonTransformer, EpisodeTransformer $episodeTransformer, $useModels = true)
+    public function __construct(TmdbClient $tmdbClient, MovieTransformer $movieTransformer, TvShowTransformer $tvShowTransformer, SeasonTransformer $seasonTransformer, EpisodeTransformer $episodeTransformer, SearchTransformer $searchTransformer, $useModels = true)
     {
         $this->tmdbClient = $tmdbClient;
         $this->movieTransformer = $movieTransformer;
         $this->tvShowTransformer = $tvShowTransformer;
         $this->seasonTransformer = $seasonTransformer;
         $this->episodeTransformer = $episodeTransformer;
+        $this->searchTransformer = $searchTransformer;
         $this->useModels = $useModels;
     }
 
@@ -78,6 +86,21 @@ class SearchClient
     public function searchTvShow($query, $language = 'en', $page = 1)
     {
         return $this->transformTvShowResponseToModels($this->tmdbClient->json("search/tv", compact('language', 'query', 'page')));
+    }
+
+    /**
+     * Search all resources via multisearch
+     *
+     * https://developers.themoviedb.org/3/search/multi-search
+     *
+     * @param string $query
+     * @param string $language
+     * @param int $page
+     * @return \stdClass
+     */
+    public function multiSearch($query, $language = 'en', $page = 1)
+    {
+        return $this->transformMultiSearchResponseToModels($this->tmdbClient->json("search/multi", compact('language', 'query', 'page')));
     }
 
     /**
@@ -114,6 +137,18 @@ class SearchClient
         if($this->useModels){
             return $this->tvShowTransformer->assignTvShowToModel($apiResponse);
         }
+        return $apiResponse;
+    }
+
+    /**
+     * @param $apiResponse
+     * @return mixed
+     */
+    private function transformMultiSearchResponseToModels($apiResponse){
+        if($this->useModels){
+            return $this->searchTransformer->assignMultiSearchToModel($apiResponse);
+        }
+
         return $apiResponse;
     }
 }
