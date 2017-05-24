@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * HTTP client for accessing The Movie Database API loosely wrapped around Guzzle
- * Document for the API can be found at TODO: Insert Link
+ * Document for the API can be found at https://developers.themoviedb.org/3/getting-started
  */
 class TmdbClient
 {

@@ -74,7 +74,35 @@ Get the MovieClient in your Controller
 $movieClient = $this->get('tmdb_movie_client');
 ```
 
+Get the EpisodeClient in your Controller
+
+```
+$episodeClient = $this->get('tmdb_episode_client');
+```
+
+Get the SeasonClient in your Controller
+
+```
+$seasonClient = $this->get('tmdb_season_client');
+```
+
+Get the SearchClient in your Controller
+
+```
+$searchClient = $this->get('tmdb_search_client');
+```
+
+
 ### Methods
+
+##### Get Information for another language
+
+You can set the language in the ClientMethod as second parameter. The default language is always `en`.
+
+```
+$response = $client->method($firstParameter, 'de');
+$response = $client->method($firstParameter, 'de');
+```
 
 #### TvShowClient
 
@@ -89,6 +117,20 @@ $tvShowRecommendations = $tvShowClient->getRecommendations(1402);
 $similarTvShows = $tvShowClient->getSimilarTvShows(1402);           
 ```
 
+#### SeasonClient
+
+```
+//Parameter: tvShowId, seasonNumber
+$season = $seasonClient->getSeason(1402, 1); 
+```
+
+#### EpisodeClient
+
+```
+//Parameter: tvShowId, seasonNumber, episodeNumber
+$episode = $episodeClient->getEpisode(1402, 1, 1); 
+```
+
 
 #### MovieClient
 
@@ -98,4 +140,14 @@ $movie = $movieClient->getMovie(13);
 $movieSearchResults = $movieClient->searchMovie('Forrest Gump');
 $similarMovies = $movieClient->getSimilarMovies(13);
 $upcomingMovies = $movieClient->getUpcomingMovies();
+```
+
+#### SearchClient
+
+```
+$movieSearchResults = $searchClient->searchMovie('Forrest Gump');
+$tvShowSearchResults = $searchClient->searchTvShow('The Walking Dead');
+
+//Movies, TvShows and Persons
+$multiSearchResults = $searchClient->multiSearch('Wesley');
 ```

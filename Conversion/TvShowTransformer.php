@@ -34,22 +34,6 @@ class TvShowTransformer extends Transformer
 
     /**
      * @param $apiResponse
-     * @return Season
-     */
-    public function assignSeasonToModel($apiResponse){
-        return new Season($apiResponse);
-    }
-
-    /**
-     * @param $apiResponse
-     * @return Episode
-     */
-    public function assignEpisodeToModel($apiResponse){
-        return new Episode($apiResponse);
-    }
-
-    /**
-     * @param $apiResponse
      * @return array
      */
     protected function generateModelFromResponse($apiResponse)

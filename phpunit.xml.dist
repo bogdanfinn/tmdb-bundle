@@ -9,7 +9,7 @@
          syntaxCheck="false"
          bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="bogdanfinn/tmdbBundle Test Suite">
+        <testsuite name="bogdanfinn/tmdb-bundle Test Suite">
             <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
