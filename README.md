@@ -1,7 +1,9 @@
 # bogdanfinn/tmdbBundle
 A symfony bundle for accessing the https://www.themoviedb.org/ Api
 
-###The Bundle is currently work in progress!
+
+### The Bundle is currently work in progress!
+
 
 
 Installation
@@ -72,8 +74,10 @@ Get the MovieClient in your Controller
 $movieClient = $this->get('tmdb_movie_client');
 ```
 
-###Methods
-####TvShowClient
+### Methods
+
+#### TvShowClient
+
 ```
 $tvShowsSearchResults = $tvShowClient->searchTvShow('The Walking Dead');
 $tvShow = $tvShowClient->getTvShow(1402);
@@ -85,7 +89,9 @@ $tvShowRecommendations = $tvShowClient->getRecommendations(1402);
 $similarTvShows = $tvShowClient->getSimilarTvShows(1402);           
 ```
 
-####MovieClient
+
+#### MovieClient
+
 ```
 $movieRecommendations = $movieClient->getRecommendations(13);
 $movie = $movieClient->getMovie(13);
